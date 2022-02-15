@@ -1,0 +1,13 @@
+{
+  "name": "jigsaw",
+  "version": "1.0.0",
+  "description": "code challenge for Wagawin",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "bruno palma",
+  "license": "ISC",
+  "dependencies": {
+  }
+}
