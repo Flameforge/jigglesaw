@@ -1,11 +1,13 @@
-@import 'variables';
+@import 'normalize.css';
+@import 'screen-sizes';
 
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
-@import 'greeter';
+@import 'colors';
+@import 'fonts';
 
-body {
-  font: 20px 'Lato', sans-serif;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
+:root {
+  @include colors;
+  @include fonts;
 }
+
+@import 'body';
+@import 'greeter';

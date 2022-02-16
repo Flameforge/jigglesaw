@@ -1,0 +1,13 @@
+@mixin TextFadeIn {
+  animation: blackRainbow ease 2s;
+
+  @keyframes blackRainbow {
+    from {
+      color: red;
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

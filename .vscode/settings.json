@@ -1,3 +1,10 @@
 {
-  "typescript.tsdk": "node_modules/typescript/lib/"
+    "cSpell.words": [
+        "dimorphotheca",
+        "prebuild",
+        "wagawin",
+        "Webfont",
+        "xxxl",
+        "xxxs"
+    ]
 }

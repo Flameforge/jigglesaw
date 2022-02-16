@@ -1,0 +1,27 @@
+@import 'type-scales';
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  font-size: var(--text-base-size);
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight);
+
+  @include type-scales;
+}
+
+h1,
+h2,
+h3,
+h4,
+form legend {
+  // improve legibility
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 0 0 1px transparent;
+}

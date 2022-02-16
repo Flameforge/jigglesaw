@@ -4,12 +4,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-
 const { merge } = require('webpack-merge');
 
 const base = {
   entry: {
-    'wagawin': ['scripts/app.ts'],
+    wagawin: ['scripts/app.ts'],
   },
   context: path.resolve(__dirname, 'src'),
   output: {
@@ -42,7 +41,6 @@ const base = {
         concurrency: 100,
       },
     }),
-
   ],
   resolve: {
     modules: ['node_modules', path.resolve(__dirname, 'src')],
@@ -93,16 +91,16 @@ const dev = {
     colors: true,
   },
   devServer: {
-    contentBase: './dist',
-    clientLogLevel: 'info',
+    // contentBase: './dist',
+    // clientLogLevel: 'info',
     port: 8080,
-    inline: true,
+    // inline: true,
     historyApiFallback: false,
     hot: true,
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 500,
-    },
+    // watchOptions: {
+    //   aggregateTimeout: 300,
+    //   poll: 500,
+    // },
   },
   devtool: 'inline-source-map',
 };

@@ -3,7 +3,7 @@ import { Greeter } from '../src/scripts/greeter';
 describe('Greeter', (): void => {
   let greeter: Greeter;
   beforeEach((): void => {
-    greeter = new Greeter('testing');
+    greeter = new Greeter('testing', 'meowso');
   });
   test('greets', (): void => {
     const container = document.createElement('div');
