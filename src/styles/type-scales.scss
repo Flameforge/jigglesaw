@@ -25,22 +25,22 @@
 
   @include sm {
     --text-base-size: 1.2em;
-    --text-scale-ratio: 1.13;
+    --text-scale-ratio: 1.25;
   }
 
   @include md {
     --text-base-size: 1.3em;
-    --text-scale-ratio: 1.15;
+    --text-scale-ratio: 1.27;
   }
 
   @include lg {
     --text-base-size: 1.5em;
-    --text-scale-ratio: 1.18;
+    --text-scale-ratio: 1.28;
   }
 
   @include xl {
     --text-base-size: 1.8em;
-    --text-scale-ratio: 1.23;
+    --text-scale-ratio: 1.3;
   }
 }
 

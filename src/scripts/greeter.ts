@@ -1,3 +1,5 @@
+import { scrollTo } from './common';
+
 export class Greeter {
   public constructor(public greeting: string, public author: string) {}
   public start(container: HTMLElement | null): void {
@@ -15,11 +17,23 @@ export class Greeter {
     const callToAction = document.createElement('button');
     callToAction.textContent = `Play`;
     callToAction.type = 'button';
-    callToAction.autofocus = true;
+
+    callToAction.addEventListener(
+      'click',
+      () => {
+        const anchor = document.querySelector(
+          'main>h2:first-of-type'
+        ) as HTMLElement;
+        if (anchor) setTimeout(() => scrollTo(anchor), 150);
+      },
+      false
+    );
 
     header.appendChild(h1);
     header.appendChild(subtitle);
     header.appendChild(callToAction);
     container.appendChild(header);
+
+    callToAction.focus();
   }
 }

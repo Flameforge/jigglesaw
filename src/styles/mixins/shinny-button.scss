@@ -1,0 +1,81 @@
+@mixin shinny-button {
+  user-select: none;
+  $button-color: var(--bluish-purple);
+  font-size: 1em;
+  $button-radius: 50%;
+  $button-size: 4em;
+  height: $button-size;
+  width: $button-size;
+  display: block;
+  font-family: var(--font-secondary);
+  margin: 2rem auto;
+  border: 2px solid transparent;
+  outline: none !important;
+  color: #fff;
+  background: var(--dimorphotheca-magenta);
+  cursor: pointer;
+  position: relative;
+  border-radius: $button-radius;
+  transition: background 0.5s ease;
+
+  &:before {
+    content: '';
+    background-color: var(--light-plum);
+    background: linear-gradient(
+      45deg,
+      var(--neon-pink) 50%,
+      var(--dimorphotheca-magenta) 50%,
+      var(--bluish-purple) 50%
+    );
+
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(12px);
+    width: calc(100% + 12px);
+    height: calc(100% + 14px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    border-radius: $button-radius;
+  }
+
+  &:active,
+  &:focus,
+  &:hover {
+    outline: 0;
+    border-style: outset;
+    transition: background 0.5s ease;
+
+    &:before {
+      opacity: 1;
+    }
+  }
+
+  &:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: $button-color;
+    left: 0;
+    top: 0;
+    border-radius: $button-radius;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  @keyframes glowing {
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 400% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+}

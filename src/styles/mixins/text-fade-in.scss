@@ -1,0 +1,14 @@
+@mixin text-fade-in {
+  animation: blackRainbow ease 1s;
+
+  @keyframes blackRainbow {
+    from {
+      color: var(--fire-engine-red);
+      opacity: 0;
+    }
+    to {
+      color: inherit;
+      opacity: 1;
+    }
+  }
+}

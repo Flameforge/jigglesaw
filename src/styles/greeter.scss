@@ -1,28 +1,35 @@
-@import 'mixins';
+@import 'mixins/text-fade-in';
+@import 'mixins/shinny-button';
 
 header {
-  margin: 4em;
-  @include TextFadeIn;
+  min-height: 100vh;
 
   h1 {
+    @include text-fade-in;
     text-align: center;
+    padding-top: 4rem;
   }
 
   p {
-    color: var(--storm-dust);
-    border: 3px solid;
-    border-image-slice: 1;
-    border-width: 1px;
+    @include text-fade-in;
     text-align: center;
-    padding: 0.375rem 0.675rem 0.5rem;
-    border-image-source: linear-gradient(
-      to left,
-      var(--bluish-purple),
-      var(--dimorphotheca-magenta)
-    );
+    $transition-hover: opacity 0.3s ease-in;
 
-    a {
-      text-decoration: none;
+    color: var(--storm-dust);
+    border: 1px solid;
+    border-width: 1px;
+    padding: 0.375rem 0.675rem 0.5rem;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(
+      var(--dimorphotheca-magenta),
+      var(--bluish-purple)
+    );
+    opacity: 0.6;
+    transition: $transition-hover;
+
+    &:hover {
+      opacity: 1;
+      transition: $transition-hover;
     }
 
     @include sm {
@@ -35,80 +42,16 @@ header {
       line-height: 1.375em;
       font-size: 75%;
     }
+
+    a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   button {
-    $button-color: var(--bluish-purple);
-    $button-radius: 50%;
-    $button-size: 5em;
-    height: $button-size;
-    width: $button-size;
-    display: block;
-    font-family: monospace;
-    margin: 2rem auto;
-    border: none;
-    outline: none;
-    color: #fff;
-    background: $button-color;
-    cursor: pointer;
-    position: relative;
-    border-radius: $button-radius;
-
-    &:before {
-      content: '';
-      background: linear-gradient(
-        45deg,
-        #ff0000,
-        #ff00c8,
-        #ffc400,
-        #ff0000,
-        #ff7300,
-        #5095fd,
-        #7a00ff,
-        #ff00c8,
-        #ff0000
-      );
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      background-size: 400%;
-      z-index: -1;
-      filter: blur(5px);
-      width: calc(100% + 4px);
-      height: calc(100% + 4px);
-      animation: glowing 20s linear infinite;
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
-      border-radius: $button-radius;
-    }
-
-    &:hover:before {
-      opacity: 1;
-    }
-
-    &:after {
-      z-index: -1;
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: $button-color;
-      left: 0;
-      top: 0;
-      border-radius: $button-radius;
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    }
-
-    @keyframes glowing {
-      0% {
-        background-position: 0 0;
-      }
-      50% {
-        background-position: 400% 0;
-      }
-      100% {
-        background-position: 0 0;
-      }
-    }
+    @include shinny-button;
   }
 }
