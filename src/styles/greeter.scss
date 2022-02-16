@@ -12,9 +12,9 @@ header {
     color: var(--storm-dust);
     border: 3px solid;
     border-image-slice: 1;
-    border-width: 2px;
+    border-width: 1px;
     text-align: center;
-    padding: 0.375rem 0.675rem;
+    padding: 0.375rem 0.675rem 0.5rem;
     border-image-source: linear-gradient(
       to left,
       var(--bluish-purple),
@@ -38,28 +38,32 @@ header {
   }
 
   button {
-    display: block;
-    margin: 1.5rem auto;
     $button-color: var(--bluish-purple);
-    padding: 0.5em 0.75em;
+    $button-radius: 50%;
+    $button-size: 5em;
+    height: $button-size;
+    width: $button-size;
+    display: block;
+    font-family: monospace;
+    margin: 2rem auto;
     border: none;
     outline: none;
     color: #fff;
     background: $button-color;
     cursor: pointer;
     position: relative;
-    border-radius: 50%;
+    border-radius: $button-radius;
 
     &:before {
       content: '';
       background: linear-gradient(
         45deg,
         #ff0000,
+        #ff00c8,
+        #ffc400,
+        #ff0000,
         #ff7300,
-        #fffb00,
-        #48ff00,
-        #00ffd5,
-        #333333,
+        #5095fd,
         #7a00ff,
         #ff00c8,
         #ff0000
@@ -75,7 +79,7 @@ header {
       animation: glowing 20s linear infinite;
       opacity: 0;
       transition: opacity 0.3s ease-in-out;
-      border-radius: 20px;
+      border-radius: $button-radius;
     }
 
     &:hover:before {
@@ -91,7 +95,7 @@ header {
       background: $button-color;
       left: 0;
       top: 0;
-      border-radius: 10px;
+      border-radius: $button-radius;
       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
 

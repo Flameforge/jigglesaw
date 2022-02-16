@@ -10,7 +10,7 @@ export class Greeter {
     h1.textContent = `${this.greeting}!`;
 
     const subtitle = document.createElement('p');
-    subtitle.innerHTML = `Developed with love by <em><a href="https://about.me/bpalma/getstarted" target="_blank">${this.author}</a></em>`;
+    subtitle.innerHTML = `made with love by <em><a href="https://about.me/bpalma/getstarted" target="_blank">${this.author}</a></em>`;
 
     const callToAction = document.createElement('button');
     callToAction.textContent = `Play`;
