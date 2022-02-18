@@ -1,9 +1,9 @@
 @mixin shinny-button {
   user-select: none;
   $button-color: var(--rebecca-purple);
-  font-size: 1em;
+  font-size: 1.5rem;
   $button-radius: 50%;
-  $button-size: 4em;
+  $button-size: 3.5em;
   height: $button-size;
   width: $button-size;
   display: block;
@@ -12,7 +12,7 @@
   border: 2px solid transparent;
   outline: none !important;
   color: #fff;
-  background: var(--dimorphotheca-magenta);
+  background: var(--bluish-purple);
   cursor: pointer;
   position: relative;
   border-radius: $button-radius;
@@ -23,11 +23,12 @@
     background-color: var(--light-plum);
     background: linear-gradient(
       45deg,
+      var(--dodger-blue),
       var(--dimorphotheca-magenta),
       var(--rebecca-purple),
       var(--fire-engine-red),
       var(--rebecca-purple),
-      var(--titanium-yellow)
+      var(--dodger-blue)
     );
 
     position: absolute;

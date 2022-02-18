@@ -1,5 +1,5 @@
 @mixin text-fade-in {
-  animation: blackRainbow ease 1s;
+  animation: blackRainbow ease 3s;
 
   @keyframes blackRainbow {
     from {
@@ -8,6 +8,19 @@
     }
     to {
       color: inherit;
+      opacity: 1;
+    }
+  }
+}
+
+@mixin hero-fade-in {
+  animation: slowlyAppear ease 5s;
+
+  @keyframes slowlyAppear {
+    from {
+      opacity: 0;
+    }
+    to {
       opacity: 1;
     }
   }

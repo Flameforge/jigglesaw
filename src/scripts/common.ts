@@ -1,4 +1,5 @@
 export function scrollTo(element: HTMLElement): void {
+  console.log('🚀 ~ file: common.ts ~ line 2 ~ scrollTo ~ element', element);
   window.scroll({
     behavior: 'smooth',
     left: 0,
