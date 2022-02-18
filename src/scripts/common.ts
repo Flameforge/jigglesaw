@@ -5,3 +5,9 @@ export function scrollTo(element: HTMLElement): void {
     top: element.offsetTop,
   });
 }
+
+export function removeAllChildNodes(parent: HTMLElement): void {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}

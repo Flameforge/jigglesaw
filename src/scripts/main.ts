@@ -1,3 +1,5 @@
+import { removeAllChildNodes } from './common';
+
 export class Main {
   public constructor(public imgUrl: string) {}
   public start(container: HTMLElement | null, placeholderImage: string): void {
@@ -9,7 +11,7 @@ export class Main {
 
     const canvasSection = document.createElement('section');
 
-    const canvas = document.createElement('div');
+    const canvas = document.createElement('map');
     canvas.id = 'canvas';
     canvas.style.backgroundImage = `url(https://66.media.tumblr.com/7ad1f786107789425fab91f6931244eb/tumblr_pi3imctSHJ1rxktx7_540.jpg)`;
 
@@ -42,8 +44,8 @@ export class Main {
     imageUrlRandom.textContent = '🐱 random';
 
     imageUrlRandom.addEventListener('click', () => {
-      const randomHeight = Math.floor(Math.random() * 1199) + 1;
-      const randomWidth = Math.floor(Math.random() * 1199) + 1;
+      const randomHeight = Math.floor(Math.random() * 799) + 401;
+      const randomWidth = Math.floor(Math.random() * 799) + 401;
       imageUrl.value = `${placeholderImage}/${randomWidth}/${randomHeight}`;
       imageLoad(canvas);
     });
@@ -62,8 +64,16 @@ export class Main {
     gridColumns.type = 'number';
     gridColumns.min = '3';
     gridColumns.max = '12';
-    gridColumns.value = '6';
-    gridColumns.addEventListener('change', () => gridLoad(canvas), false);
+    gridColumns.value = '3';
+    gridColumns.addEventListener(
+      'change',
+      () => {
+        if (gridColumns.value < gridColumns.min)
+          gridColumns.value = gridColumns.min;
+        gridLoad(canvas);
+      },
+      false
+    );
 
     const gridColumnsLabel = document.createElement('label');
     gridColumnsLabel.textContent = `Columns`;
@@ -74,8 +84,15 @@ export class Main {
     gridRows.type = 'number';
     gridRows.min = '3';
     gridRows.max = '12';
-    gridRows.value = '6';
-    gridRows.addEventListener('change', () => gridLoad(canvas), false);
+    gridRows.value = '4';
+    gridRows.addEventListener(
+      'change',
+      () => {
+        if (gridRows.value < gridRows.min) gridRows.value = gridRows.min;
+        gridLoad(canvas);
+      },
+      false
+    );
 
     const gridRowsLabel = document.createElement('label');
     gridRowsLabel.textContent = `Rows`;
@@ -101,6 +118,7 @@ export class Main {
     gridSelector.appendChild(gridColumns);
 
     canvasSection.appendChild(canvas);
+    gridLoad(canvas);
 
     main.appendChild(gridSelector);
     main.appendChild(canvasSection);
@@ -112,10 +130,44 @@ export class Main {
       canvas.style.backgroundImage = `url(${imageUrl.value})`;
     }
 
-    function gridLoad(image: Element) {
+    function gridLoad(canvas: HTMLElement) {
+      const cols = Number(gridColumns.value);
+      const rows = Number(gridRows.value);
+      const gridSize = cols * rows;
       console.log(
-        '🚀 ~ file: main.ts ~ line 84 ~ Main ~ gridLoad ~ image',
-        image
+        '🚀 ~ file: main.ts ~ line 119 ~ Main ~ gridLoad ~ gridSize',
+        gridSize
+      );
+
+      const height = canvas.offsetHeight;
+      console.log(
+        '🚀 ~ file: main.ts ~ line 125 ~ Main ~ gridLoad ~ height',
+        height
+      );
+      const width = canvas.offsetWidth;
+      console.log(
+        '🚀 ~ file: main.ts ~ line 130 ~ Main ~ gridLoad ~ width',
+        width
+      );
+
+      removeAllChildNodes(canvas);
+      const squares = [...Array(gridSize).keys()].forEach(() => {
+        const square = document.createElement('area');
+
+        square.shape = 'rect';
+
+        // shape="rect" coords="34,44,270,350" alt="Computer"
+
+        canvas.appendChild(square);
+      });
+      console.log(
+        '🚀 ~ file: main.ts ~ line 144 ~ Main ~ squares.map ~ squares',
+        squares
+      );
+
+      document.documentElement.style.setProperty(
+        '--grid-columns',
+        String(cols)
       );
     }
   }

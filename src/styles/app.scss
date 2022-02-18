@@ -7,6 +7,8 @@
 :root {
   @include colors;
   @include fonts;
+
+  --grid-columns: 4;
 }
 
 @import 'body';

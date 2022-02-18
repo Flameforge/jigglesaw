@@ -1,6 +1,6 @@
 @mixin shinny-button {
   user-select: none;
-  $button-color: var(--bluish-purple);
+  $button-color: var(--rebecca-purple);
   font-size: 1em;
   $button-radius: 50%;
   $button-size: 4em;
@@ -23,9 +23,11 @@
     background-color: var(--light-plum);
     background: linear-gradient(
       45deg,
-      var(--neon-pink) 50%,
-      var(--dimorphotheca-magenta) 50%,
-      var(--bluish-purple) 50%
+      var(--dimorphotheca-magenta),
+      var(--rebecca-purple),
+      var(--fire-engine-red),
+      var(--rebecca-purple),
+      var(--titanium-yellow)
     );
 
     position: absolute;

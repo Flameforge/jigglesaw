@@ -13,7 +13,6 @@ main {
   h2 {
     @include text-fade-in;
     padding-top: 3rem;
-    // margin: 0;
   }
 
   section {
@@ -77,7 +76,7 @@ main {
     border-image-slice: 1;
     border-image-source: linear-gradient(
       var(--dimorphotheca-magenta),
-      var(--bluish-purple)
+      var(--rebecca-purple)
     );
 
     background-size: cover;
@@ -87,6 +86,25 @@ main {
 
     @include md {
       height: 50vh;
+    }
+
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), 1fr);
+
+    area {
+      cursor: pointer;
+      border: 1px solid var(--bluish-purple);
+      border-image-slice: 1;
+      border-image-source: linear-gradient(
+        var(--dimorphotheca-magenta),
+        var(--rebecca-purple)
+      );
+      transition: background 0.1s ease-out;
+      opacity: 0.5;
+
+      &:hover {
+        background: var(--neon-pink);
+      }
     }
   }
 
