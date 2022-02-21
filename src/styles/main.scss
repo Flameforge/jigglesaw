@@ -112,12 +112,10 @@ main {
       font-size: 1rem;
       color: white;
       cursor: pointer;
-      border: 1px solid var(--bluish-purple);
+      border: 1px solid rgba(#1e90ff, 0.5);
+
+      background-clip: border-box;
       border-image-slice: 1;
-      border-image-source: linear-gradient(
-        var(--dimorphotheca-magenta),
-        var(--rebecca-purple)
-      );
       transition: backgroundColor 0.1s ease-out;
       background-blend-mode: lighten;
 

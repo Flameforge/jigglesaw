@@ -24,10 +24,11 @@
     background: linear-gradient(
       45deg,
       var(--dodger-blue),
+      var(--rebecca-purple),
+      var(--dodger-blue),
       var(--dimorphotheca-magenta),
       var(--rebecca-purple),
-      var(--fire-engine-red),
-      var(--rebecca-purple),
+      rgba(red, 0.5),
       var(--dodger-blue)
     );
 
@@ -36,9 +37,9 @@
     left: -4px;
     background-size: 400%;
     z-index: -1;
-    filter: blur(12px);
-    width: calc(100% + 12px);
-    height: calc(100% + 14px);
+    filter: blur(9px);
+    width: calc(100% + 11px);
+    height: calc(100% + 13px);
     animation: glowing 20s linear infinite;
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
