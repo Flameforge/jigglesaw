@@ -1,34 +1,3 @@
-function addDragStartListener(element: HTMLElement) {
-  element.addEventListener('dragstart', (e) => onDragStart(e), false);
-}
-
-function addDragEndListener(element: HTMLElement) {
-  console.log('🚀 ~ file: main.ts ~ line 173 ~ Main ~ addDragEndListener');
-  element.addEventListener('dragend', (e) => onDragEnd(e), false);
-}
-
-function addDragEnterListener(element: HTMLElement) {
-  element.addEventListener('dragenter', (e) => onDragEnter(e), false);
-}
-
-function addDragLeaveListener(element: HTMLElement) {
-  element.addEventListener('dragleave', (e) => onDragLeave(e), false);
-}
-
-function addDragDropListener(element: HTMLElement) {
-  element.addEventListener('drop', (e) => onDragDrop(e));
-}
-
-function onDragEnter(event: Event) {
-  const target = event.target as HTMLElement;
-  // target.style.backgroundColor = 'rgba(30, 144, 255, 0.5)';
-}
-
-function onDragLeave(event: Event) {
-  const target = event.target as HTMLElement;
-  // target.style.removeProperty('background-color');
-}
-
 function onDragDrop(event: DragEvent) {
   if (!event.dataTransfer) return;
 
@@ -39,23 +8,20 @@ function onDragDrop(event: DragEvent) {
     document.querySelectorAll<HTMLElement>('[data-order]')
   );
   const source = sources.find((x) => x.style.order === sourceOrder);
-  if (source) source.style.order = targetOrder;
+  if (source) {
+    source.style.order = targetOrder;
+    target.style.removeProperty('background-color');
+  }
 
   target.style.order = sourceOrder;
-  // target.style.backgroundColor = 'rgba(245, 53, 170, 0.5)';
+  target.style.removeProperty('background-color');
 }
 
 function onDragStart(event: DragEvent) {
+  console.log('🚀 ~ file: shuffle.ts ~ line 51 ~ onDragStart ~ onDragStart');
   const target = event.target as HTMLElement;
   const order = target.style?.order || '';
   event.dataTransfer?.setData('text/plain', order);
-}
-
-function onDragEnd(event: Event) {
-  // console.log('🚀 ~ file: main.ts ~ line 205 ~ Main ~ onDragEnd ');
-  const target = event.target as HTMLElement;
-  // target.style.removeProperty('background-color');
-  console.log();
 }
 
 export function shuffle(canvasId: string, image: string): void {
@@ -72,15 +38,20 @@ export function shuffle(canvasId: string, image: string): void {
   const squares = canvas.children as HTMLCollectionOf<HTMLElement>;
 
   for (const square of squares) {
-    addDragStartListener(square);
-    addDragEndListener(square);
-    addDragEnterListener(square);
-    addDragLeaveListener(square);
-    addDragDropListener(square);
-    square.addEventListener('dragover', (e) => e.preventDefault(), false);
+    square.addEventListener('dragstart', (e) => onDragStart(e), false);
+
+    square.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      square.style.backgroundColor = 'rgba(30, 144, 255, 0.5)';
+    });
+
+    square.addEventListener('dragleave', (e) => {
+      square.style.removeProperty('background-color');
+    });
+
+    square.addEventListener('drop', (e) => onDragDrop(e));
 
     const newOrder = shuffled[0];
-
     square.style.order = String(newOrder);
     square.style.backgroundImage = `url(${image})`;
 
