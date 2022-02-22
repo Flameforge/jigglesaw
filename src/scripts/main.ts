@@ -12,6 +12,20 @@ export class Main {
     this.loadedTimer = null;
     this.loadedPinger = null;
   }
+
+  public loadGame(canvas: HTMLElement, backgroundImage: string): void {
+    Canvas.loadImage(canvas, backgroundImage);
+    new Grid(canvas);
+    this.timer.stop();
+    this.timer.reset();
+    document.documentElement.style.setProperty('--timer', `''`);
+    clearTimeout(this.loadedTimer);
+    clearInterval(this.loadedPinger);
+
+    const overlay = document.getElementById('overlay');
+    if (overlay) canvas.removeChild(overlay);
+  }
+
   public start(container: HTMLElement | null, placeholderImage: string): void {
     if (!container) throw new Error('no container');
 
@@ -34,11 +48,7 @@ export class Main {
 
     imageUrl.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        Canvas.loadImage(canvas, imageUrl.value);
-        new Grid(canvas);
-        this.timer.stop();
-        this.timer.reset();
-        document.documentElement.style.setProperty('--timer', `''`);
+        this.loadGame(canvas, imageUrl.value);
       }
     });
 
@@ -47,11 +57,7 @@ export class Main {
     imageUrlSet.type = 'button';
     imageUrlSet.textContent = '↵ load image';
     imageUrlSet.addEventListener('click', () => {
-      Canvas.loadImage(canvas, imageUrl.value);
-      new Grid(canvas);
-      this.timer.stop();
-      this.timer.reset();
-      document.documentElement.style.setProperty('--timer', `''`);
+      this.loadGame(canvas, imageUrl.value);
     });
 
     const imageUrlRandom = document.createElement('button');
@@ -63,11 +69,8 @@ export class Main {
       const randomHeight = Math.floor(Math.random() * 799) + 401;
       const randomWidth = Math.floor(Math.random() * 799) + 401;
       imageUrl.value = `${placeholderImage}/${randomWidth}/${randomHeight}`;
-      Canvas.loadImage(canvas, imageUrl.value);
-      new Grid(canvas);
-      this.timer.stop();
-      this.timer.reset();
-      document.documentElement.style.setProperty('--timer', `''`);
+
+      this.loadGame(canvas, imageUrl.value);
     });
 
     const imageUrlLabel = document.createElement('label');
@@ -90,10 +93,7 @@ export class Main {
         '--grid-columns',
         String(gridColumns.value)
       );
-      new Grid(canvas);
-      this.timer.stop();
-      this.timer.reset();
-      document.documentElement.style.setProperty('--timer', `''`);
+      this.loadGame(canvas, imageUrl.value);
     });
 
     const gridColumnsLabel = document.createElement('label');
@@ -111,10 +111,7 @@ export class Main {
         '--grid-rows',
         String(gridRows.value)
       );
-      new Grid(canvas);
-      this.timer.stop();
-      this.timer.reset();
-      document.documentElement.style.setProperty('--timer', `''`);
+      this.loadGame(canvas, imageUrl.value);
     });
     const gridRowsLabel = document.createElement('label');
     gridRowsLabel.textContent = `Rows`;
@@ -126,12 +123,9 @@ export class Main {
     callToAction.id = 'cta';
     callToAction.classList.add('next');
 
-    callToAction.addEventListener('click', () => {
-      if (this.loadedTimer !== null) {
-        clearTimeout(this.loadedTimer);
-        clearInterval(this.loadedPinger);
-        return;
-      }
+    callToAction.addEventListener('click', (e) => {
+      callToAction.disabled = true;
+      this.loadGame(canvas, imageUrl.value);
 
       shuffle('canvas', imageUrl.value);
 
@@ -167,6 +161,7 @@ export class Main {
           document.documentElement.style.setProperty('--win', `'0'`);
         }, 100);
         this.loadedTimer = null;
+        callToAction.disabled = false;
       }, 4000);
     });
 
