@@ -9,10 +9,6 @@
     "noEmitHelpers": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ES2017"
-    ]
+    "lib": ["DOM", "DOM.Iterable", "ES2017"]
   }
 }
