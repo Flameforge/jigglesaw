@@ -4,7 +4,7 @@ import { Greeter } from './greeter';
 import { Main } from './main';
 
 const greeter: Greeter = new Greeter('Jigsaw puzzle', '@bpalma');
-const main: Main = new Main('Jigsaw puzzle');
+const main: Main = new Main();
 const placeholderImage = 'https://placekitten.com/g';
 
 const app = document.getElementById('app');

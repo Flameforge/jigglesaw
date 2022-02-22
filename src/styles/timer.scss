@@ -1,0 +1,107 @@
+$timer_unit: 1s;
+$timer_length: 3;
+$timer_delay: 0.5s;
+
+$starting_hue: 240;
+$hue_increment: 120 / $timer_length;
+
+@mixin scale_timer($scale) {
+  $x: $scale;
+  width: 50vmin * $x;
+  height: 50vmin * $x;
+
+  font-size: 25vmin * $x;
+  text-shadow: (2.5vmin * $x) (2.5vmin * $x) (5vmin * $x) rgba(black, 0.125);
+}
+
+#overlay {
+  position: absolute;
+
+  background-color: hsl($starting_hue, 80, 60);
+  font-family: var(--font-secondary);
+  animation: ($timer_unit * $timer_length) ($timer_delay - $timer_unit * 0.125)
+    cubic-bezier(0.9, 0, 0.1, 1) forwards background_color;
+
+  @at-root {
+    @keyframes background_color {
+      @for $i from 1 through $timer_length + 1 {
+        #{100% / $timer_length * $i} {
+          $hue: $hue_increment * $i * 2;
+          background-color: hsl($starting_hue + $hue, 80, 60);
+        }
+      }
+    }
+  }
+}
+
+div {
+  width: 50vmin;
+  height: 50vmin;
+
+  font-size: 25vmin;
+  text-shadow: (2.5vmin) (2.5vmin) (5vmin) rgba(black, 0.125);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: white;
+  font-weight: 700;
+
+  &:before {
+    content: '#{$timer_length}';
+
+    animation: ($timer_unit * $timer_length) $timer_delay forwards
+        timer_countdown,
+      $timer_unit ($timer_delay - $timer_unit * 0.125) $timer_length timer_beat;
+
+    @at-root {
+      @keyframes timer_beat {
+        40%,
+        80% {
+          transform: none;
+        }
+        50% {
+          transform: scale(1.125);
+        }
+      }
+    }
+
+    @at-root {
+      @keyframes timer_countdown {
+        @for $i from 0 through $timer_length {
+          #{100% / $timer_length * $i} {
+            $actual: -$i + $timer_length;
+            @if $actual == 0 {
+              content: 'go!';
+            } @else {
+              content: '#{$actual}';
+            }
+          }
+        }
+      }
+    }
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -100;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(black, 0.125);
+    animation: ($timer_unit * $timer_length) $timer_delay linear forwards
+      timer_indicator;
+
+    @at-root {
+      @keyframes timer_indicator {
+        100% {
+          transform: translateY(100%);
+        }
+      }
+    }
+  }
+}

@@ -8,9 +8,11 @@
   @include colors;
   @include fonts;
 
-  --grid-columns: 4;
+  --grid-rows: 4;
+  --grid-columns: 3;
 }
 
 @import 'body';
 @import 'greeter';
 @import 'main';
+@import 'timer';

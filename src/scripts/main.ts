@@ -1,26 +1,20 @@
-import { removeAllChildNodes } from './common';
+import { doc } from 'prettier';
 import { Canvas } from './main/canvas';
+import { Grid } from './main/grid';
 import { shuffle } from './main/shuffle';
 
 export class Main {
-  public constructor(public imgUrl: string) {}
   public start(container: HTMLElement | null, placeholderImage: string): void {
-    if (!container) {
-      throw new Error('no container');
-    }
+    if (!container) throw new Error('no container');
 
     const main = document.createElement('main');
 
-    const canvasSection = document.createElement('section');
-
-    const canvas = Canvas.create(
-      'https://66.media.tumblr.com/7ad1f786107789425fab91f6931244eb/tumblr_pi3imctSHJ1rxktx7_540.jpg'
-    );
-
     const defaultUrl = 'https://placekitten.com/g/300/300';
 
+    const canvas = Canvas.create();
+
     const h2 = document.createElement('h2');
-    h2.textContent = `Settings`;
+    h2.textContent = 'Settings';
 
     const imageSelector = document.createElement('section');
 
@@ -29,16 +23,11 @@ export class Main {
     imageUrl.type = 'url';
     imageUrl.setAttribute('placeholder', placeholderImage);
     imageUrl.value = defaultUrl;
-    imageUrl.addEventListener(
-      'click',
-      () => {
-        Canvas.imageLoad(canvas, imageUrl.value);
-      },
-      false
-    );
-    imageUrl.addEventListener('keydown', function (e) {
+
+    imageUrl.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        Canvas.imageLoad(canvas, imageUrl.value);
+        Canvas.loadImage(canvas, imageUrl.value);
+        new Grid(canvas);
       }
     });
 
@@ -46,11 +35,10 @@ export class Main {
     imageUrlSet.id = 'set-url';
     imageUrlSet.type = 'button';
     imageUrlSet.textContent = '↵ load image';
-    imageUrlSet.addEventListener(
-      'click',
-      () => Canvas.imageLoad(canvas, imageUrl.value),
-      false
-    );
+    imageUrlSet.addEventListener('click', () => {
+      Canvas.loadImage(canvas, imageUrl.value);
+      new Grid(canvas);
+    });
 
     const imageUrlRandom = document.createElement('button');
     imageUrlRandom.id = 'reset-url';
@@ -61,7 +49,8 @@ export class Main {
       const randomHeight = Math.floor(Math.random() * 799) + 401;
       const randomWidth = Math.floor(Math.random() * 799) + 401;
       imageUrl.value = `${placeholderImage}/${randomWidth}/${randomHeight}`;
-      Canvas.imageLoad(canvas, imageUrl.value);
+      Canvas.loadImage(canvas, imageUrl.value);
+      new Grid(canvas);
     });
 
     const imageUrlLabel = document.createElement('label');
@@ -79,7 +68,14 @@ export class Main {
     gridColumns.min = '2';
     gridColumns.max = '12';
     gridColumns.value = '3';
-    gridColumns.addEventListener('change', () => gridLoad(canvas), false);
+    gridColumns.addEventListener('change', () => {
+      document.documentElement.style.setProperty(
+        '--grid-columns',
+        String(gridColumns.value)
+      );
+      new Grid(canvas);
+    });
+
     const gridColumnsLabel = document.createElement('label');
     gridColumnsLabel.textContent = `Columns`;
     gridColumnsLabel.setAttribute('for', gridColumns.id);
@@ -90,7 +86,13 @@ export class Main {
     gridRows.min = '2';
     gridRows.max = '12';
     gridRows.value = '4';
-    gridRows.addEventListener('change', () => gridLoad(canvas), false);
+    gridRows.addEventListener('change', () => {
+      document.documentElement.style.setProperty(
+        '--grid-rows',
+        String(gridRows.value)
+      );
+      new Grid(canvas);
+    });
     const gridRowsLabel = document.createElement('label');
     gridRowsLabel.textContent = `Rows`;
     gridRowsLabel.setAttribute('for', gridRows.id);
@@ -99,11 +101,10 @@ export class Main {
     callToAction.textContent = `Start`;
     callToAction.type = 'button';
     callToAction.classList.add('next');
-    callToAction.addEventListener(
-      'click',
-      () => shuffle('canvas', imageUrl.value),
-      false
-    );
+    callToAction.addEventListener('click', () => {
+      shuffle('canvas', imageUrl.value);
+      startCountdown('canvas');
+    });
 
     main.appendChild(h2);
     main.appendChild(imageSelector);
@@ -119,37 +120,26 @@ export class Main {
     gridSelector.appendChild(gridColumnsLabel);
     gridSelector.appendChild(gridColumns);
 
-    canvasSection.appendChild(canvas);
-    gridLoad(canvas);
+    new Grid(canvas);
 
     main.appendChild(gridSelector);
-    main.appendChild(canvasSection);
+    main.appendChild(canvas);
     main.appendChild(callToAction);
 
     container.appendChild(main);
 
-    Canvas.imageLoad(canvas, imageUrl.value);
-
-    function gridLoad(canvas: HTMLElement) {
-      const cols = Number(gridColumns.value);
-      const rows = Number(gridRows.value);
-      const gridSize = cols * rows;
-
-      document.documentElement.style.setProperty(
-        '--grid-columns',
-        String(cols)
-      );
-
-      removeAllChildNodes(canvas);
-
-      for (let i = 0; i < gridSize; i++) {
-        const square = document.createElement('area');
-        square.setAttribute('data-order', String(i));
-        square.style.order = String(i);
-        square.draggable = true;
-
-        canvas.appendChild(square);
-      }
-    }
+    Canvas.loadImage(canvas, imageUrl.value);
   }
+}
+
+function startCountdown(elementId: string) {
+  const canvas = document.getElementById(elementId);
+  if (!canvas) return;
+
+  const overlay = document.createElement('div');
+  overlay.id = 'overlay';
+  canvas.appendChild(overlay);
+  setTimeout((x) => {
+    canvas.removeChild(overlay);
+  }, 4000);
 }
