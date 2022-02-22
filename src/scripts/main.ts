@@ -1,9 +1,17 @@
-import { doc } from 'prettier';
 import { Canvas } from './main/canvas';
 import { Grid } from './main/grid';
 import { shuffle } from './main/shuffle';
+import { Timer } from './main/timer';
 
 export class Main {
+  public timer: Timer;
+  private loadedPinger: any;
+  private loadedTimer: any;
+  public constructor() {
+    this.timer = new Timer();
+    this.loadedTimer = null;
+    this.loadedPinger = null;
+  }
   public start(container: HTMLElement | null, placeholderImage: string): void {
     if (!container) throw new Error('no container');
 
@@ -28,6 +36,9 @@ export class Main {
       if (e.key === 'Enter') {
         Canvas.loadImage(canvas, imageUrl.value);
         new Grid(canvas);
+        this.timer.stop();
+        this.timer.reset();
+        document.documentElement.style.setProperty('--timer', `''`);
       }
     });
 
@@ -38,6 +49,9 @@ export class Main {
     imageUrlSet.addEventListener('click', () => {
       Canvas.loadImage(canvas, imageUrl.value);
       new Grid(canvas);
+      this.timer.stop();
+      this.timer.reset();
+      document.documentElement.style.setProperty('--timer', `''`);
     });
 
     const imageUrlRandom = document.createElement('button');
@@ -51,6 +65,9 @@ export class Main {
       imageUrl.value = `${placeholderImage}/${randomWidth}/${randomHeight}`;
       Canvas.loadImage(canvas, imageUrl.value);
       new Grid(canvas);
+      this.timer.stop();
+      this.timer.reset();
+      document.documentElement.style.setProperty('--timer', `''`);
     });
 
     const imageUrlLabel = document.createElement('label');
@@ -74,6 +91,9 @@ export class Main {
         String(gridColumns.value)
       );
       new Grid(canvas);
+      this.timer.stop();
+      this.timer.reset();
+      document.documentElement.style.setProperty('--timer', `''`);
     });
 
     const gridColumnsLabel = document.createElement('label');
@@ -92,6 +112,9 @@ export class Main {
         String(gridRows.value)
       );
       new Grid(canvas);
+      this.timer.stop();
+      this.timer.reset();
+      document.documentElement.style.setProperty('--timer', `''`);
     });
     const gridRowsLabel = document.createElement('label');
     gridRowsLabel.textContent = `Rows`;
@@ -100,11 +123,54 @@ export class Main {
     const callToAction = document.createElement('button');
     callToAction.textContent = `Start`;
     callToAction.type = 'button';
+    callToAction.id = 'cta';
     callToAction.classList.add('next');
+
     callToAction.addEventListener('click', () => {
+      if (this.loadedTimer !== null) {
+        clearTimeout(this.loadedTimer);
+        clearInterval(this.loadedPinger);
+        return;
+      }
+
       shuffle('canvas', imageUrl.value);
-      startCountdown('canvas');
+
+      document.documentElement.style.setProperty('--win', '');
+
+      const overlay = document.createElement('div');
+      overlay.id = 'overlay';
+      canvas.appendChild(overlay);
+      document.documentElement.style.setProperty('--timer', `''`);
+
+      this.loadedTimer = setTimeout((x) => {
+        canvas.removeChild(overlay);
+        this.timer.reset();
+        this.timer.start();
+        document.documentElement.style.setProperty('--timer', `'0s'`);
+
+        this.loadedPinger = setInterval(() => {
+          const win =
+            getComputedStyle(document.documentElement).getPropertyValue(
+              '--win'
+            ) === '1';
+
+          if (win) {
+            clearInterval(this.loadedPinger);
+            setTimeout(() => {
+              alert(`you win! You completed the challenge!`);
+            }, 300);
+            return;
+          }
+
+          const time = Math.round(this.timer.getTime() / 1000);
+          document.documentElement.style.setProperty('--timer', `'${time}s'`);
+          document.documentElement.style.setProperty('--win', `'0'`);
+        }, 100);
+        this.loadedTimer = null;
+      }, 4000);
     });
+
+    // canvas.appendChild(timerContainer);
 
     main.appendChild(h2);
     main.appendChild(imageSelector);
@@ -124,22 +190,11 @@ export class Main {
 
     main.appendChild(gridSelector);
     main.appendChild(canvas);
+
     main.appendChild(callToAction);
 
     container.appendChild(main);
 
     Canvas.loadImage(canvas, imageUrl.value);
   }
-}
-
-function startCountdown(elementId: string) {
-  const canvas = document.getElementById(elementId);
-  if (!canvas) return;
-
-  const overlay = document.createElement('div');
-  overlay.id = 'overlay';
-  canvas.appendChild(overlay);
-  setTimeout((x) => {
-    canvas.removeChild(overlay);
-  }, 4000);
 }

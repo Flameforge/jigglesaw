@@ -1,3 +1,5 @@
+import { winCheck } from '../winCheck';
+
 export class Grid {
   public constructor(canvas: HTMLElement) {
     const columns = getComputedStyle(document.documentElement).getPropertyValue(
@@ -55,6 +57,7 @@ export class Grid {
 
     target.style.order = sourceOrder;
     target.style.removeProperty('background-color');
+    winCheck();
   }
 
   private static onDragLeave(event: DragEvent): void {

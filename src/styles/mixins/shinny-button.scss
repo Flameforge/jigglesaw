@@ -1,4 +1,5 @@
 @mixin shinny-button {
+  @include improve-legibility;
   user-select: none;
   $button-color: var(--rebecca-purple);
   font-size: 1.5rem;

@@ -10,9 +10,11 @@
 
   --grid-rows: 4;
   --grid-columns: 3;
+  --timer: '';
+  --win: '0';
 }
 
 @import 'body';
 @import 'greeter';
 @import 'main';
-@import 'timer';
+@import 'count-down';
