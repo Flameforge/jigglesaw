@@ -1,6 +1,5 @@
 coverage
-# dist
+dist
 node_modules
 junit.xml
-
 npm-debug.log

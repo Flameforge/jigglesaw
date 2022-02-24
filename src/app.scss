@@ -1,0 +1,20 @@
+@import 'styles/normalize.css';
+@import 'styles/screen-sizes';
+
+@import 'styles/colors';
+@import 'styles/fonts';
+
+:root {
+  @include colors;
+  @include fonts;
+
+  --grid-rows: 4;
+  --grid-columns: 3;
+  --timer: '';
+  --win: '0';
+}
+
+@import 'styles/body';
+@import 'greeter/greeter';
+@import 'main/main';
+@import 'main/count-down';

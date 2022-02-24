@@ -1,6 +1,6 @@
-@import 'mixins/text-fade-in';
-@import 'mixins/shinny-button';
-@import 'mixins/grab-cursor';
+@import '../styles/mixins/text-fade-in';
+@import '../styles/mixins/shinny-button';
+@import '../styles/mixins/grab-cursor';
 
 body > main {
   display: block;

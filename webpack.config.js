@@ -1,14 +1,13 @@
-const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
-const { merge } = require('webpack-merge');
+const { merge } = require('webpack-merge')
 
 const base = {
   entry: {
-    wagawin: ['scripts/app.ts'],
+    wagawin: ['app.ts'],
   },
   context: path.resolve(__dirname, 'src'),
   output: {
@@ -35,12 +34,6 @@ const base = {
       inject: 'body',
       scriptLoading: 'defer',
     }),
-    new CopyPlugin({
-      patterns: [{ from: 'public' }],
-      options: {
-        concurrency: 100,
-      },
-    }),
   ],
   resolve: {
     modules: ['node_modules', path.resolve(__dirname, 'src')],
@@ -51,7 +44,7 @@ const base = {
     maxEntrypointSize: 512000,
     maxAssetSize: 512000,
   },
-};
+}
 
 const prod = {
   mode: 'production',
@@ -72,7 +65,7 @@ const prod = {
       chunkFilename: 'css/[id].[chunkhash:8].css',
     }),
   ],
-};
+}
 
 const dev = {
   mode: 'development',
@@ -91,18 +84,11 @@ const dev = {
     colors: true,
   },
   devServer: {
-    // contentBase: './dist',
-    // clientLogLevel: 'info',
     port: 8080,
-    // inline: true,
     historyApiFallback: false,
     hot: true,
-    // watchOptions: {
-    //   aggregateTimeout: 300,
-    //   poll: 500,
-    // },
   },
   devtool: 'inline-source-map',
-};
+}
 
-module.exports = (env) => merge(base, env && env.production ? prod : dev);
+module.exports = (env) => merge(base, env && env.production ? prod : dev)

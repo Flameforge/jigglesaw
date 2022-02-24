@@ -2,17 +2,12 @@
 
 @mixin fonts {
   --font-weight: 300;
-  --font-primary: 'Segoe UI Webfont', '-apple - system', 'Helvetica Neue',
-    'Lucida Grande', Roboto, Ebrima, 'Nirmala UI', Gadugi, 'Segoe Xbox Symbol',
-    'Segoe UI Symbol', 'Meiryo UI', 'Khmer UI', Tunga, 'Lao UI', Raavi,
-    'Iskoola Pota', Latha, Leelawadee, 'Microsoft YaHei UI',
-    'Microsoft JhengHei UI', 'Malgun Gothic', 'Estrangelo Edessa',
-    'Microsoft Himalaya', 'Microsoft New Tai Lue', 'Microsoft PhagsPa',
-    'Microsoft Tai Le', 'Microsoft Yi Baiti', 'Mongolian Baiti', 'MV Boli',
-    'Myanmar Text', 'Cambria Math';
+  --font-primary: 'Segoe UI Webfont', '-apple - system', 'Helvetica Neue', 'Lucida Grande', Roboto, Ebrima, 'Nirmala UI', Gadugi,
+    'Segoe Xbox Symbol', 'Segoe UI Symbol', 'Meiryo UI', 'Khmer UI', Tunga, 'Lao UI', Raavi, 'Iskoola Pota', Latha, Leelawadee,
+    'Microsoft YaHei UI', 'Microsoft JhengHei UI', 'Malgun Gothic', 'Estrangelo Edessa', 'Microsoft Himalaya', 'Microsoft New Tai Lue',
+    'Microsoft PhagsPa', 'Microsoft Tai Le', 'Microsoft Yi Baiti', 'Mongolian Baiti', 'MV Boli', 'Myanmar Text', 'Cambria Math';
   --font-primary-color: var(--boulder);
-  --font-secondary: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
-    Courier, monospace;
+  --font-secondary: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
   --font-secondary-color: var(--black-eel);
 }
 

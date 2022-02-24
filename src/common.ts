@@ -3,5 +3,5 @@ export function scrollTo(element: HTMLElement): void {
     behavior: 'smooth',
     left: 0,
     top: element.offsetTop,
-  });
+  })
 }

@@ -1,4 +1,4 @@
-# wagawin
+# vanilla_jigsaw
 
 ![Styled with Prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)
 
@@ -14,12 +14,6 @@ npm install
 
 ```properties
 npm run build
-```
-
-## Test your project
-
-```properties
-npm test
 ```
 
 ## Lint your project
