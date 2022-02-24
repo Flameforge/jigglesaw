@@ -43,10 +43,6 @@ body > main {
       &:not(:last-of-type) {
         margin-right: 0.25rem;
       }
-
-      // @include lg {
-      //   line-height: 1.125rem;
-      // }
     }
   }
 

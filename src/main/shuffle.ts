@@ -1,6 +1,10 @@
-export function shuffle(canvasId: string, image: string): void {
+export function shuffle(canvasId: string): void {
   const canvas = document.getElementById(canvasId)
   if (!canvas) return
+
+  const image = getComputedStyle(document.documentElement).getPropertyValue(
+    '--image-url'
+  )
 
   const size = canvas.childElementCount
 
@@ -16,7 +20,11 @@ export function shuffle(canvasId: string, image: string): void {
     square.style.order = String(newOrder)
     square.style.backgroundImage = `url(${image})`
 
-    const cols = Number(getComputedStyle(document.documentElement).getPropertyValue('--grid-columns'))
+    const cols = Number(
+      getComputedStyle(document.documentElement).getPropertyValue(
+        '--grid-columns'
+      )
+    )
 
     const rows = size / cols
 
@@ -58,8 +66,10 @@ export function shuffle(canvasId: string, image: string): void {
     const shrinkWidth = (realWidth - width) / 2
     const shrinkHeight = (realHeight - height) / 2
 
-    square.style.backgroundPositionX = -squareSizeHorizontal * (initialColumn - 1) - shrinkWidth - 1 + 'px'
-    square.style.backgroundPositionY = -squareSizeVertical * (initialRow - 1) - shrinkHeight - 1 + 'px'
+    square.style.backgroundPositionX =
+      -squareSizeHorizontal * (initialColumn - 1) - shrinkWidth - 1 + 'px'
+    square.style.backgroundPositionY =
+      -squareSizeVertical * (initialRow - 1) - shrinkHeight - 1 + 'px'
 
     shuffled.shift()
   }

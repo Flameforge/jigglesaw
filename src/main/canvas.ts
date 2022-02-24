@@ -7,7 +7,11 @@ export class Canvas {
     return canvas
   }
 
-  public static loadImage(canvas: HTMLElement, image: string): void {
+  public static loadImage(canvas: HTMLElement): void {
+    const image = getComputedStyle(document.documentElement).getPropertyValue(
+      '--image-url'
+    )
+
     canvas.style.backgroundImage = `url(${image})`
   }
 }
