@@ -4,9 +4,7 @@ import Main from '../../main'
 export default class RowsInput {
   public constructor() {}
 
-  public start(container: HTMLElement | null, main: Main) {
-    if (!container) throw new Error('no container')
-
+  public start(container: HTMLElement, main: Main) {
     const label = document.createElement('label')
     label.textContent = `Rows`
     label.setAttribute('for', 'grid-rows')

@@ -7,9 +7,7 @@ export default class UrlInput {
     this.input = document.createElement('input')
   }
 
-  public start(container: HTMLElement | null) {
-    if (!container) throw new Error('no container')
-
+  public start(container: HTMLElement) {
     const image = getImage()
 
     const label = document.createElement('label')

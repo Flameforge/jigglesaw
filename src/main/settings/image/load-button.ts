@@ -1,4 +1,4 @@
-import { getImage, setImage } from '../../../common'
+import { getImage, setImage, setTimer } from '../../../common'
 import Main from '../../main'
 
 export default class ImageLoadButton {
@@ -11,6 +11,8 @@ export default class ImageLoadButton {
     button.textContent = '↵ load image'
     button.addEventListener('click', () => {
       setImage(main.imageInput.input.value)
+      setTimer(0)
+      main.game.stop(main.canvas)
 
       const tempImage = new Image()
       tempImage.addEventListener('load', () => main.grid.start(main))
