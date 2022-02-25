@@ -41,3 +41,25 @@ export function getRows(): string {
 export function setRows(size: number) {
   document.documentElement.style.setProperty('--grid-rows', String(size))
 }
+
+export function getWin(): string {
+  const cssValue = getComputedStyle(document.documentElement).getPropertyValue(
+    '--win'
+  )
+  return cssValue
+}
+
+export function setWin(size: number) {
+  document.documentElement.style.setProperty('--win', String(size))
+}
+
+export function getTimer(): string {
+  const cssValue = getComputedStyle(document.documentElement).getPropertyValue(
+    '--timer'
+  )
+  return cssValue
+}
+
+export function setTimer(size: number) {
+  document.documentElement.style.setProperty('--timer', size + 's')
+}
