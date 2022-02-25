@@ -61,7 +61,7 @@ export default class Main {
     // Other stuff
     this.canvas.id = 'canvas'
 
-    window.addEventListener('load', () => this.grid.start(this.canvas))
+    window.addEventListener('load', () => this.grid.start(this))
 
     main.appendChild(this.canvas)
 

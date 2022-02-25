@@ -24,7 +24,7 @@ export default class ImageRandomButton {
       setImage(newUrl)
 
       const tempImage = new Image()
-      tempImage.addEventListener('load', () => main.grid.start(main.canvas))
+      tempImage.addEventListener('load', () => main.grid.start(main))
       tempImage.src = getImage()
     })
 

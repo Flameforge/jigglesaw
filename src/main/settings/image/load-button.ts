@@ -13,7 +13,7 @@ export default class ImageLoadButton {
       setImage(main.imageInput.input.value)
 
       const tempImage = new Image()
-      tempImage.addEventListener('load', () => main.grid.start(main.canvas))
+      tempImage.addEventListener('load', () => main.grid.start(main))
       tempImage.src = getImage()
     })
 

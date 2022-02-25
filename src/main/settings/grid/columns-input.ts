@@ -17,7 +17,7 @@ export default class ColumnsInput {
     input.value = getColumns()
     input.addEventListener('change', (e) => {
       setColumns(Number(input.value))
-      main.grid.start(main.canvas)
+      main.grid.start(main)
     })
 
     container.appendChild(label)

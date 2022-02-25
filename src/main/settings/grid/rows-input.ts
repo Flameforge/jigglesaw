@@ -19,7 +19,7 @@ export default class RowsInput {
     input.value = getRows()
     input.addEventListener('change', (e) => {
       setRows(Number(input.value))
-      main.grid.start(main.canvas)
+      main.grid.start(main)
     })
 
     container.appendChild(label)

@@ -1,14 +1,14 @@
 import { getColumns, getImage, getRows } from '../../common'
-import { winCheck } from './winCheck'
+import Main from '../main'
 
 export default class Grid {
   public constructor() {}
-  public start(canvas: HTMLElement) {
+  public start(main: Main) {
     const columns = getColumns()
     const rows = getRows()
     const gridSize = Number(columns) * Number(rows)
 
-    Grid.clean(canvas)
+    Grid.clean(main.canvas, main)
 
     for (let i = 0; i < gridSize; i++) {
       const square = document.createElement('area')
@@ -22,8 +22,8 @@ export default class Grid {
 
       // Getting the height of the container as the image is set to background-position: cover;
       // We need to calculate the position of the background of each square in the grid
-      const width = canvas.clientWidth
-      const height = canvas.clientHeight
+      const width = main.canvas.clientWidth
+      const height = main.canvas.clientHeight
 
       const tempImage = new Image()
       tempImage.src = getImage()
@@ -68,19 +68,19 @@ export default class Grid {
       square.addEventListener('dragstart', (e) => Grid.onDragStart(e))
       square.addEventListener('dragover', (e) => Grid.onDragOver(e))
       square.addEventListener('dragleave', (e) => Grid.onDragLeave(e))
-      square.addEventListener('drop', (e) => Grid.onDragDrop(e))
+      square.addEventListener('drop', (e) => Grid.onDragDrop(e, main))
 
-      canvas.appendChild(square)
+      main.canvas.appendChild(square)
     }
   }
 
-  private static clean(container: HTMLElement): void {
+  private static clean(container: HTMLElement, main: Main): void {
     const oldCells = document.querySelectorAll('area')
     for (const cell of oldCells) {
       cell.removeEventListener('dragstart', (e) => Grid.onDragStart(e))
       cell.removeEventListener('dragover', (e) => Grid.onDragOver(e))
       cell.removeEventListener('dragleave', (e) => Grid.onDragLeave(e))
-      cell.removeEventListener('drop', (e) => Grid.onDragDrop(e))
+      cell.removeEventListener('drop', (e) => Grid.onDragDrop(e, main))
       container.removeChild(cell)
     }
   }
@@ -105,7 +105,7 @@ export default class Grid {
     }
   }
 
-  private static onDragDrop(event: DragEvent): void {
+  private static onDragDrop(event: DragEvent, main: Main): void {
     if (!event.dataTransfer) return
 
     const target = event.target as HTMLElement
@@ -114,6 +114,7 @@ export default class Grid {
     const sources = Array.from(
       document.querySelectorAll<HTMLElement>('[data-order]')
     )
+
     const source = sources.find((x) => x.style.order === sourceOrder)
     if (source) {
       source.style.order = targetOrder
@@ -122,7 +123,8 @@ export default class Grid {
 
     target.style.order = sourceOrder
     target.style.removeProperty('background-color')
-    winCheck()
+
+    main.game.checkWin()
   }
 
   private static onDragLeave(event: DragEvent): void {

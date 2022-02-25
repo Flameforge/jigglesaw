@@ -1,4 +1,4 @@
-import { setTimer, setWin } from '../../common'
+import { getWin, setTimer, setWin } from '../../common'
 import Grid from './grid'
 import Timer from './timer'
 
@@ -13,7 +13,7 @@ export default class Game {
     this.timer = new Timer()
   }
 
-  public stop(canvas: HTMLMapElement) {
+  public stop(canvas: HTMLMapElement): void {
     const overlayDom = document.getElementById('overlay')
     if (overlayDom) canvas.removeChild(overlayDom)
     if (this.loadedTimer !== null) clearTimeout(this.loadedTimer)
@@ -21,7 +21,7 @@ export default class Game {
     setTimer(0)
   }
 
-  public start(canvas: HTMLMapElement) {
+  public start(canvas: HTMLMapElement): void {
     this.stop(canvas)
 
     Grid.shuffle(canvas)
@@ -40,10 +40,7 @@ export default class Game {
       this.timer.reset()
       this.timer.start()
       this.loadedPinger = setInterval(() => {
-        const win =
-          getComputedStyle(document.documentElement).getPropertyValue(
-            '--win'
-          ) === '1'
+        const win = getWin() === '1'
 
         if (win) {
           clearInterval(this.loadedPinger)
@@ -59,5 +56,19 @@ export default class Game {
       }, 100)
       this.loadedTimer = null
     }, 4000)
+  }
+
+  public checkWin(): void {
+    let win = true
+
+    const squares = document.querySelectorAll('area')
+
+    squares.forEach((square) => {
+      const originalOrder = square.getAttribute('data-order')
+      const actualOrder = square.style.order
+      if (actualOrder !== originalOrder) win = false
+    })
+
+    if (win) setWin(1)
   }
 }
