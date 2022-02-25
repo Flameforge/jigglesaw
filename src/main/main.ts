@@ -1,11 +1,11 @@
-import Game from './game/game'
-import Grid from './game/grid'
-import StartButton from './game/start-button'
-import ColumnsInput from './settings/grid/columns-input'
-import RowsInput from './settings/grid/rows-input'
-import ImageLoadButton from './settings/image/load-button'
-import ImageRandomButton from './settings/image/random-button'
-import UrlInput from './settings/image/url-input'
+import Game from '../game/game'
+import Grid from '../game/grid'
+import ColumnsInput from './grid/columns-input'
+import RowsInput from './grid/rows-input'
+import ImageLoadButton from './image/load-button'
+import ImageRandomButton from './image/random-button'
+import UrlInput from './image/url-input'
+import StartButton from './start-button'
 
 export default class Main {
   grid: Grid

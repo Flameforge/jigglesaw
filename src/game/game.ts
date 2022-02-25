@@ -1,4 +1,4 @@
-import { getWin, setTimer, setWin } from '../../common'
+import { getWin, setTimer, setWin } from '../common'
 import Grid from './grid'
 import Timer from './timer'
 

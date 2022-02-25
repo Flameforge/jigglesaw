@@ -1,4 +1,4 @@
-import { getImage, setImage } from '../../../common'
+import { getImage, setImage } from '../../common'
 
 export default class UrlInput {
   input: HTMLInputElement

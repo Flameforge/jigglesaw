@@ -1,5 +1,5 @@
-import { getImage, setImage, setTimer } from '../../../common'
-import Main from '../../main'
+import { getImage, setImage, setTimer } from '../../common'
+import Main from '../main'
 
 export default class ImageLoadButton {
   public constructor() {}

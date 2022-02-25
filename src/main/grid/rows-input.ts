@@ -1,5 +1,5 @@
-import { getRows, setRows } from '../../../common'
-import Main from '../../main'
+import { getRows, setRows } from '../../common'
+import Main from '../main'
 
 export default class RowsInput {
   public constructor() {}

@@ -1,5 +1,5 @@
-import { getImage, setImage } from '../../../common'
-import Main from '../../main'
+import { getImage, setImage } from '../../common'
+import Main from '../main'
 
 export default class ImageRandomButton {
   public constructor() {}

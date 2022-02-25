@@ -1,5 +1,5 @@
-import { getColumns, setColumns } from '../../../common'
-import Main from '../../main'
+import { getColumns, setColumns } from '../../common'
+import Main from '../main'
 
 export default class ColumnsInput {
   public constructor() {}

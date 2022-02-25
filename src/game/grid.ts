@@ -1,5 +1,5 @@
-import { getColumns, getImage, getRows } from '../../common'
-import Main from '../main'
+import { getColumns, getImage, getRows } from '../common'
+import Main from '../main/main'
 
 export default class Grid {
   public constructor() {}
@@ -97,12 +97,24 @@ export default class Grid {
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value)
 
+    const oldSquareOrder = []
+    const newSquareOrder = []
     // change the order in the grid
     for (const square of squares) {
       const newOrder = shuffled[0]
+      oldSquareOrder.push(square.style.order)
+      newSquareOrder.push(String(newOrder))
       square.style.order = String(newOrder)
       shuffled.shift()
     }
+
+    let sameOrder = false
+
+    if (oldSquareOrder.toString() === newSquareOrder.toString())
+      sameOrder = true
+
+    // hmm nasty, shuffle again
+    if (sameOrder) this.shuffle(container)
   }
 
   private static onDragDrop(event: DragEvent, main: Main): void {
