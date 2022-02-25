@@ -1,13 +1,12 @@
 {
-	"recommendations": [
-		"esbenp.prettier-vscode",
-        "streetsidesoftware.code-spell-checker",
-        "dbaeumer.vscode-eslint",
-        "ms-vscode.vscode-typescript-next",
-        "stylelint.vscode-stylelint",
-        "rbbit.typescript-hero",
-        "pflannery.vscode-versionlens",
-        "chakrounanas.turbo-console-log"
-
-	]
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "streetsidesoftware.code-spell-checker",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.vscode-typescript-next",
+    "stylelint.vscode-stylelint",
+    "rbbit.typescript-hero",
+    "pflannery.vscode-versionlens",
+    "chakrounanas.turbo-console-log"
+  ]
 }
