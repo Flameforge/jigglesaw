@@ -1,11 +1,10 @@
+import { getImage, setImage } from '../../../common'
 import UrlInput from './url-input'
-import { getImage, setImage } from './image-section'
 
 export default class ImageRandomButton {
   public constructor() {}
-  public start(container: HTMLElement | null, that: UrlInput) {
-    if (!container) throw new Error('no container')
 
+  public start(container: HTMLElement, that: UrlInput) {
     const button = document.createElement('button')
     button.id = 'reset-url'
     button.type = 'button'
@@ -21,7 +20,10 @@ export default class ImageRandomButton {
 
       that.input.value = newUrl
       setImage(newUrl)
+
+      // main.grid.start(main.canvas)
     })
+
     container.appendChild(button)
   }
 }

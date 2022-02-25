@@ -6,6 +6,20 @@ export function scrollTo(element: HTMLElement): void {
   })
 }
 
+export function getImage(): string {
+  const cssValue = getComputedStyle(document.documentElement).getPropertyValue(
+    '--image-url'
+  )
+  const removeUrlEncapsulation = cssValue
+    .substring(4, cssValue.length - 1)
+    .replace(/["]+/g, '')
+  return removeUrlEncapsulation
+}
+
+export function setImage(url: string) {
+  document.documentElement.style.setProperty('--image-url', `url("${url}")`)
+}
+
 export function getColumns(): string {
   const cssValue = getComputedStyle(document.documentElement).getPropertyValue(
     '--grid-columns'

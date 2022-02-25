@@ -1,11 +1,12 @@
+import { getImage, setImage } from '../../../common'
 import Main from '../../main'
-import { getImage, setImage } from './image-section'
 
 export default class UrlInput {
   input: HTMLInputElement
   public constructor() {
     this.input = document.createElement('input')
   }
+
   public start(container: HTMLElement | null) {
     if (!container) throw new Error('no container')
 
@@ -22,10 +23,9 @@ export default class UrlInput {
     input.setAttribute('placeholder', image)
     input.value = image
     input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        setImage(input.value)
-      }
+      if (e.key === 'Enter') setImage(input.value)
     })
+
     container.appendChild(input)
   }
 }

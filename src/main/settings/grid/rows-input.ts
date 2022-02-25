@@ -3,6 +3,7 @@ import Main from '../../main'
 
 export default class RowsInput {
   public constructor() {}
+
   public start(container: HTMLElement | null, main: Main) {
     if (!container) throw new Error('no container')
 

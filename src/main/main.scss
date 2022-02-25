@@ -84,7 +84,6 @@ body > main {
   #canvas {
     position: relative;
     @include text-fade-in;
-    display: block;
     margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
@@ -98,7 +97,6 @@ body > main {
       rgba(#1e90ff, 1)
     );
 
-    background-image: var(--image-url);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -115,6 +113,7 @@ body > main {
 
       border: 1px solid rgba(#1e90ff, 0.5);
 
+      background-image: var(--image-url);
       background-clip: border-box;
       border-image-slice: 1;
       transition: backgroundColor 0.1s ease-out;

@@ -1,14 +1,14 @@
-import { getColumns, getRows } from '../../common'
+import { getColumns, getImage, getRows } from '../../common'
 import { winCheck } from './winCheck'
 
 export default class Grid {
   public constructor() {}
-  public start(container: HTMLElement) {
+  public start(canvas: HTMLElement) {
     const columns = getColumns()
     const rows = getRows()
     const gridSize = Number(columns) * Number(rows)
 
-    Grid.clean(container)
+    Grid.clean(canvas)
 
     for (let i = 0; i < gridSize; i++) {
       const square = document.createElement('area')
@@ -16,12 +16,61 @@ export default class Grid {
       square.style.order = String(i)
       square.draggable = true
 
+      const originalOrder = Number(square.dataset.order)
+      const initialRow = Math.ceil((originalOrder + 1) / Number(columns))
+      const initialColumn = (originalOrder % Number(columns)) + 1
+
+      // Getting the height of the container as the image is set to background-position: cover;
+      // We need to calculate the position of the background of each square in the grid
+      const width = canvas.clientWidth
+      const height = canvas.clientHeight
+
+      const tempImage = new Image()
+      tempImage.src = getImage()
+      const imageHeight = tempImage.height
+      const imageWidth = tempImage.width
+
+      // Adjusting if the container or the image are in landscape or portrait mode
+      const imageRatio = imageWidth / imageHeight
+      const containerRatio = width / height
+
+      let realWidth
+      let realHeight
+
+      if (containerRatio > imageRatio) {
+        realWidth = width
+        realHeight = width / imageRatio
+      } else {
+        realWidth = height * imageRatio
+        realHeight = height
+      }
+
+      // Adjusting for outer borders 1px each
+      realWidth += 2
+      realHeight += 2
+
+      const realBackgroundSize = `${realWidth}px ${realHeight}px`
+
+      square.style.backgroundSize = realBackgroundSize
+
+      const squarePositionX = width / Number(columns)
+      const squarePositionY = height / Number(rows)
+      const shrinkWidth = (realWidth - width) / 2
+      const shrinkHeight = (realHeight - height) / 2
+
+      // Calculating the correspondent position X and Y of the background
+      // based on the size of the square, the image and the canvas
+      square.style.backgroundPositionX =
+        -squarePositionX * (initialColumn - 1) - shrinkWidth - 1 + 'px'
+      square.style.backgroundPositionY =
+        -squarePositionY * (initialRow - 1) - shrinkHeight - 1 + 'px'
+
       square.addEventListener('dragstart', (e) => Grid.onDragStart(e))
       square.addEventListener('dragover', (e) => Grid.onDragOver(e))
       square.addEventListener('dragleave', (e) => Grid.onDragLeave(e))
       square.addEventListener('drop', (e) => Grid.onDragDrop(e))
 
-      container.appendChild(square)
+      canvas.appendChild(square)
     }
   }
 
@@ -33,6 +82,26 @@ export default class Grid {
       cell.removeEventListener('dragleave', (e) => Grid.onDragLeave(e))
       cell.removeEventListener('drop', (e) => Grid.onDragDrop(e))
       container.removeChild(cell)
+    }
+  }
+
+  public static shuffle(container: HTMLElement): void {
+    const size = container.childElementCount
+
+    const squares = container.children as HTMLCollectionOf<HTMLElement>
+    // We create an array from 1 to $size
+    // We put each element in the array in an object, and give it a random sort key
+    // We sort using the random key
+    const shuffled = [...Array(size).keys()]
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value)
+
+    // change the order in the grid
+    for (const square of squares) {
+      const newOrder = shuffled[0]
+      square.style.order = String(newOrder)
+      shuffled.shift()
     }
   }
 
