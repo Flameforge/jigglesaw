@@ -1,4 +1,4 @@
-export class Timer {
+export default class Timer {
   public isRunning: boolean
   public overallTime: number
   public startTime: number
@@ -16,7 +16,8 @@ export class Timer {
 
   public getTime(): number {
     if (!this.startTime) return 0
-    if (this.isRunning) return this.overallTime + this._getTimeElapsedSinceLastStart()
+    if (this.isRunning)
+      return this.overallTime + this._getTimeElapsedSinceLastStart()
     return this.overallTime
   }
 

@@ -1,18 +1,14 @@
+import { getColumns, getRows } from '../../common'
 import { winCheck } from './winCheck'
 
-export class Grid {
-  public constructor(canvas: HTMLElement) {
-    const columns = getComputedStyle(document.documentElement).getPropertyValue(
-      '--grid-columns'
-    )
-
-    const rows = getComputedStyle(document.documentElement).getPropertyValue(
-      '--grid-rows'
-    )
-
+export default class Grid {
+  public constructor() {}
+  public start(container: HTMLElement) {
+    const columns = getColumns()
+    const rows = getRows()
     const gridSize = Number(columns) * Number(rows)
 
-    Grid.clean(canvas)
+    Grid.clean(container)
 
     for (let i = 0; i < gridSize; i++) {
       const square = document.createElement('area')
@@ -25,18 +21,18 @@ export class Grid {
       square.addEventListener('dragleave', (e) => Grid.onDragLeave(e))
       square.addEventListener('drop', (e) => Grid.onDragDrop(e))
 
-      canvas.appendChild(square)
+      container.appendChild(square)
     }
   }
 
-  private static clean(canvas: HTMLElement): void {
-    const oldGrid = document.querySelectorAll('area')
-    for (const cell of oldGrid) {
+  private static clean(container: HTMLElement): void {
+    const oldCells = document.querySelectorAll('area')
+    for (const cell of oldCells) {
       cell.removeEventListener('dragstart', (e) => Grid.onDragStart(e))
       cell.removeEventListener('dragover', (e) => Grid.onDragOver(e))
       cell.removeEventListener('dragleave', (e) => Grid.onDragLeave(e))
       cell.removeEventListener('drop', (e) => Grid.onDragDrop(e))
-      canvas.removeChild(cell)
+      container.removeChild(cell)
     }
   }
 

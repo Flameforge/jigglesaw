@@ -1,6 +1,6 @@
 import { scrollTo } from '../common'
 
-export class Greeter {
+export default class Greeter {
   public constructor(public greeting: string, public author: string) {}
   public start(container: HTMLElement | null): void {
     if (!container) throw new Error('no container')

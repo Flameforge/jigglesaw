@@ -8,8 +8,8 @@
   @include colors;
   @include fonts;
 
-  --grid-rows: 4;
-  --grid-columns: 3;
+  --grid-rows: 2;
+  --grid-columns: 2;
   --timer: '';
   --win: '0';
   --image-url: '';
@@ -18,4 +18,4 @@
 @import 'styles/body';
 @import 'greeter/greeter';
 @import 'main/main';
-@import 'main/count-down';
+@import 'main/game/count-down';
