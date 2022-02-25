@@ -1,6 +1,5 @@
 import './app.scss'
 import { setColumns, setImage, setRows } from './common'
-
 import Greeter from './greeter/greeter'
 import Main from './main/main'
 

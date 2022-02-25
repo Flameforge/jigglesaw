@@ -1,4 +1,7 @@
 {
+  "editor.codeActionsOnSave": [
+    "source.organizeImports",
+ ],
   "cSpell.words": [
     "bobo",
     "bpalma",

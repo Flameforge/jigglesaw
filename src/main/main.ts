@@ -1,6 +1,6 @@
+import Game from './game/game'
 import Grid from './game/grid'
 import StartButton from './game/start-button'
-import Game from './game/game'
 import ColumnsInput from './settings/grid/columns-input'
 import RowsInput from './settings/grid/rows-input'
 import ImageLoadButton from './settings/image/load-button'
