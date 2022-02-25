@@ -1,10 +1,10 @@
 import { getImage, setImage } from '../../../common'
-import UrlInput from './url-input'
+import Main from '../../main'
 
 export default class ImageRandomButton {
   public constructor() {}
 
-  public start(container: HTMLElement, that: UrlInput) {
+  public start(container: HTMLElement, main: Main) {
     const button = document.createElement('button')
     button.id = 'reset-url'
     button.type = 'button'
@@ -18,10 +18,12 @@ export default class ImageRandomButton {
       const removeDefaultValues = imageUrl.split('/').slice(0, -2).join('/')
       const newUrl = `${removeDefaultValues}/${randomWidth}/${randomHeight}`
 
-      that.input.value = newUrl
+      main.imageInput.input.value = newUrl
       setImage(newUrl)
 
-      // main.grid.start(main.canvas)
+      const tempImage = new Image()
+      tempImage.addEventListener('load', () => main.grid.start(main.canvas))
+      tempImage.src = getImage()
     })
 
     container.appendChild(button)

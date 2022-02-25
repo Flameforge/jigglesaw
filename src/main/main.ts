@@ -37,16 +37,16 @@ export default class Main {
     title.textContent = 'Settings'
     main.appendChild(title)
 
-    // Image section
+    // Image Settings section
     const imageSection = document.createElement('section')
 
     this.imageInput.start(imageSection)
-    this.imageLoadButton.start(imageSection, this.imageInput)
-    this.imageRandomButton.start(imageSection, this.imageInput)
+    this.imageLoadButton.start(imageSection, this)
+    this.imageRandomButton.start(imageSection, this)
 
     main.appendChild(imageSection)
 
-    // Grid
+    // Grid Settings section
     const gridSection = document.createElement('section')
 
     const subtitle = document.createElement('p')
@@ -58,6 +58,7 @@ export default class Main {
 
     main.appendChild(gridSection)
 
+    // Other stuff
     this.canvas.id = 'canvas'
 
     window.addEventListener('load', () => this.grid.start(this.canvas))
