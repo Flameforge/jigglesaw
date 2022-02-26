@@ -4,6 +4,10 @@
 
 ![Typed with TypeScript](https://flat.badgen.net/badge/icon/Typed?icon=typescript&label&labelColor=blue&color=555555)
 
+Welcome to a VanillaJs challenge, no libs (just normalizer) of a trivial puzzle game. Testing some CSS effects and transitions.
+
+The code is public and can be seen in the [git repo](https://github.com/Flameforge/jiglesaw) and you can (probably still) find a here hosted [demo](https://raw.githack.com/Flameforge/jiglesaw/master/dist/index.html).
+
 ## Fetch dependencies
 
 ```properties
