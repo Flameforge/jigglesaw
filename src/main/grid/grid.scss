@@ -1,0 +1,64 @@
+body > main {
+  input[type='number'] {
+    margin-right: 1rem;
+    max-width: 5ch;
+  }
+
+  #grid {
+    position: relative;
+    @include text-fade-in;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+
+    border: 1px solid;
+    border-width: 1px;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(
+      180deg,
+      rgba(#1e90ff, 1),
+      rgba(#1e90ff, 1)
+    );
+
+    background-image: var(--image-url);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 80vw;
+    max-height: 75vmin;
+
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), 1fr);
+
+    area {
+      @include grab-cursor;
+      font-size: 1rem;
+      color: white;
+      border: 1px solid rgba(#1e90ff, 0.5);
+      background-image: var(--image-url);
+      background-clip: border-box;
+      border-image-slice: 1;
+      transition: backgroundColor 0.1s ease-out;
+      background-blend-mode: lighten;
+
+      &:hover {
+        background-color: rgba(30, 144, 255, 0.5);
+      }
+    }
+
+    &:after {
+      content: var(--timer);
+      color: var(--neon-pink);
+      font-size: 3rem;
+      font-family: var(--font-secondary);
+
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+  }
+}

@@ -14,16 +14,12 @@ export default class Greeter {
     callToAction.textContent = `Play`
     callToAction.type = 'button'
 
-    callToAction.addEventListener(
-      'click',
-      () => {
-        const anchor = document.querySelector(
-          'main>h2:first-of-type'
-        ) as HTMLElement
-        if (anchor) setTimeout(() => scrollTo(anchor), 150)
-      },
-      false
-    )
+    callToAction.addEventListener('click', () => {
+      const anchor = document.querySelector(
+        'main>h2:first-of-type'
+      ) as HTMLElement
+      if (anchor) setTimeout(() => scrollTo(anchor), 150)
+    })
 
     header.appendChild(h1)
     header.appendChild(subtitle)

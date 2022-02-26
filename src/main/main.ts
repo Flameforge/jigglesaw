@@ -1,6 +1,6 @@
 import Game from '../game/game'
-import Grid from '../game/grid'
 import ColumnsInput from './grid/columns-input'
+import Grid from './grid/grid'
 import RowsInput from './grid/rows-input'
 import ImageLoadButton from './image/load-button'
 import ImageRandomButton from './image/random-button'
@@ -59,7 +59,7 @@ export default class Main {
     main.appendChild(gridSection)
 
     // Other stuff
-    this.canvas.id = 'canvas'
+    this.canvas.id = 'grid'
 
     window.addEventListener('load', () => this.grid.start(this))
 

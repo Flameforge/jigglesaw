@@ -7,8 +7,7 @@ export default class StartButton {
     const button = document.createElement('button')
     button.textContent = `Start`
     button.type = 'button'
-    button.id = 'cta'
-    button.classList.add('next')
+    button.id = 'start'
     button.addEventListener('click', (e) => main.game.start(main.canvas))
 
     container.appendChild(button)

@@ -1,0 +1,30 @@
+body > main {
+  input {
+    @include text-fade-in;
+    vertical-align: middle;
+    line-height: 1rem;
+    padding: 0.375rem 0.5rem;
+    border: 1px solid var(--bobo-gray);
+    font-family: var(--font-secondary);
+    font-size: small;
+
+    &#image-url {
+      min-width: 40ch;
+      margin-right: 0.25rem;
+    }
+  }
+
+  label {
+    @include text-fade-in;
+    font-size: 1.125rem;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+    font-weight: bolder;
+    line-height: 2rem;
+
+    &[for='grid-rows'],
+    &[for='grid-columns'] {
+      font-size: 1rem;
+    }
+  }
+}

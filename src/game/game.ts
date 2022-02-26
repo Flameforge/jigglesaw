@@ -1,5 +1,5 @@
 import { getWin, setTimer, setWin } from '../common'
-import Grid from './grid'
+import Grid from '../main/grid/grid'
 import Timer from './timer'
 
 export default class Game {

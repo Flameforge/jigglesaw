@@ -1,8 +1,9 @@
-import { getColumns, getImage, getRows } from '../common'
-import Main from '../main/main'
+import { getColumns, getImage, getRows } from '../../common'
+import Main from '../main'
 
 export default class Grid {
   public constructor() {}
+
   public start(main: Main) {
     const columns = getColumns()
     const rows = getRows()
@@ -16,6 +17,11 @@ export default class Grid {
       square.style.order = String(i)
       square.draggable = true
 
+      square.addEventListener('dragstart', (e) => Grid.onDragStart(e))
+      square.addEventListener('dragover', (e) => Grid.onDragOver(e))
+      square.addEventListener('dragleave', (e) => Grid.onDragLeave(e))
+      square.addEventListener('drop', (e) => Grid.onDragDrop(e, main))
+
       const originalOrder = Number(square.dataset.order)
       const initialRow = Math.ceil((originalOrder + 1) / Number(columns))
       const initialColumn = (originalOrder % Number(columns)) + 1
@@ -25,6 +31,7 @@ export default class Grid {
       const width = main.canvas.clientWidth
       const height = main.canvas.clientHeight
 
+      // Loading a temp image to get the size of the image once loaded
       const tempImage = new Image()
       tempImage.src = getImage()
       const imageHeight = tempImage.height
@@ -65,23 +72,18 @@ export default class Grid {
       square.style.backgroundPositionY =
         -squarePositionY * (initialRow - 1) - shrinkHeight - 1 + 'px'
 
-      square.addEventListener('dragstart', (e) => Grid.onDragStart(e))
-      square.addEventListener('dragover', (e) => Grid.onDragOver(e))
-      square.addEventListener('dragleave', (e) => Grid.onDragLeave(e))
-      square.addEventListener('drop', (e) => Grid.onDragDrop(e, main))
-
       main.canvas.appendChild(square)
     }
   }
 
   private static clean(container: HTMLElement, main: Main): void {
-    const oldCells = document.querySelectorAll('area')
-    for (const cell of oldCells) {
-      cell.removeEventListener('dragstart', (e) => Grid.onDragStart(e))
-      cell.removeEventListener('dragover', (e) => Grid.onDragOver(e))
-      cell.removeEventListener('dragleave', (e) => Grid.onDragLeave(e))
-      cell.removeEventListener('drop', (e) => Grid.onDragDrop(e, main))
-      container.removeChild(cell)
+    const oldSquares = document.querySelectorAll('area')
+    for (const square of oldSquares) {
+      square.removeEventListener('dragstart', (e) => Grid.onDragStart(e))
+      square.removeEventListener('dragover', (e) => Grid.onDragOver(e))
+      square.removeEventListener('dragleave', (e) => Grid.onDragLeave(e))
+      square.removeEventListener('drop', (e) => Grid.onDragDrop(e, main))
+      container.removeChild(square)
     }
   }
 
