@@ -11,7 +11,7 @@ export default class ImageRandomButton {
     button.textContent = '🐱 random'
 
     button.addEventListener('click', () => {
-      main.game.stop(main.canvas)
+      main.game.stop(main.map)
 
       const randomHeight = Math.floor(Math.random() * 799) + 401
       const randomWidth = Math.floor(Math.random() * 799) + 401

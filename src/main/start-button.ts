@@ -8,7 +8,7 @@ export default class StartButton {
     button.textContent = `Start`
     button.type = 'button'
     button.id = 'start'
-    button.addEventListener('click', (e) => main.game.start(main.canvas))
+    button.addEventListener('click', (e) => main.game.start(main.map))
 
     container.appendChild(button)
   }

@@ -46,6 +46,7 @@ body > main {
       }
     }
 
+    // This is the actual timer after the game starts
     &:after {
       content: var(--timer);
       color: var(--neon-pink);
@@ -59,6 +60,16 @@ body > main {
       width: 100%;
       pointer-events: none;
       opacity: 0.7;
+
+      @include md {
+        top: 1vmin;
+        opacity: 0.8;
+      }
+
+      @include lg {
+        opacity: 0.9;
+        top: 2vmin;
+      }
     }
   }
 }

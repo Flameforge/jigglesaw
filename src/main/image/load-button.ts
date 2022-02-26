@@ -12,7 +12,7 @@ export default class ImageLoadButton {
     button.addEventListener('click', () => {
       setImage(main.imageInput.input.value)
       setTimer(0)
-      main.game.stop(main.canvas)
+      main.game.stop(main.map)
 
       const tempImage = new Image()
       tempImage.addEventListener('load', () => main.grid.start(main))

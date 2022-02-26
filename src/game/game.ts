@@ -61,11 +61,11 @@ export default class Game {
   public checkWin(): void {
     let win = true
 
-    const squares = document.querySelectorAll('area')
+    const areas = document.querySelectorAll('area')
 
-    squares.forEach((square) => {
-      const originalOrder = square.getAttribute('data-order')
-      const actualOrder = square.style.order
+    areas.forEach((area) => {
+      const originalOrder = area.getAttribute('data-order')
+      const actualOrder = area.style.order
       if (actualOrder !== originalOrder) win = false
     })
 

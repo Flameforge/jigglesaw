@@ -9,27 +9,27 @@ export default class Grid {
     const rows = getRows()
     const gridSize = Number(columns) * Number(rows)
 
-    Grid.clean(main.canvas, main)
+    Grid.clean(main.map, main)
 
     for (let i = 0; i < gridSize; i++) {
-      const square = document.createElement('area')
-      square.setAttribute('data-order', String(i))
-      square.style.order = String(i)
-      square.draggable = true
+      const area = document.createElement('area')
+      area.setAttribute('data-order', String(i))
+      area.style.order = String(i)
+      area.draggable = true
 
-      square.addEventListener('dragstart', (e) => Grid.onDragStart(e))
-      square.addEventListener('dragover', (e) => Grid.onDragOver(e))
-      square.addEventListener('dragleave', (e) => Grid.onDragLeave(e))
-      square.addEventListener('drop', (e) => Grid.onDragDrop(e, main))
+      area.addEventListener('dragstart', (e) => Grid.onDragStart(e))
+      area.addEventListener('dragover', (e) => Grid.onDragOver(e))
+      area.addEventListener('dragleave', (e) => Grid.onDragLeave(e))
+      area.addEventListener('drop', (e) => Grid.onDragDrop(e, main))
 
-      const originalOrder = Number(square.dataset.order)
+      const originalOrder = Number(area.dataset.order)
       const initialRow = Math.ceil((originalOrder + 1) / Number(columns))
       const initialColumn = (originalOrder % Number(columns)) + 1
 
       // Getting the height of the container as the image is set to background-position: cover;
       // We need to calculate the position of the background of each square in the grid
-      const width = main.canvas.clientWidth
-      const height = main.canvas.clientHeight
+      const width = main.map.clientWidth
+      const height = main.map.clientHeight
 
       // Loading a temp image to get the size of the image once loaded
       const tempImage = new Image()
@@ -58,39 +58,39 @@ export default class Grid {
 
       const realBackgroundSize = `${realWidth}px ${realHeight}px`
 
-      square.style.backgroundSize = realBackgroundSize
+      area.style.backgroundSize = realBackgroundSize
 
-      const squarePositionX = width / Number(columns)
-      const squarePositionY = height / Number(rows)
+      const areaPositionX = width / Number(columns)
+      const areaPositionY = height / Number(rows)
       const shrinkWidth = (realWidth - width) / 2
       const shrinkHeight = (realHeight - height) / 2
 
       // Calculating the correspondent position X and Y of the background
       // based on the size of the square, the image and the canvas
-      square.style.backgroundPositionX =
-        -squarePositionX * (initialColumn - 1) - shrinkWidth - 1 + 'px'
-      square.style.backgroundPositionY =
-        -squarePositionY * (initialRow - 1) - shrinkHeight - 1 + 'px'
+      area.style.backgroundPositionX =
+        -areaPositionX * (initialColumn - 1) - shrinkWidth - 1 + 'px'
+      area.style.backgroundPositionY =
+        -areaPositionY * (initialRow - 1) - shrinkHeight - 1 + 'px'
 
-      main.canvas.appendChild(square)
+      main.map.appendChild(area)
     }
   }
 
   private static clean(container: HTMLElement, main: Main): void {
-    const oldSquares = document.querySelectorAll('area')
-    for (const square of oldSquares) {
-      square.removeEventListener('dragstart', (e) => Grid.onDragStart(e))
-      square.removeEventListener('dragover', (e) => Grid.onDragOver(e))
-      square.removeEventListener('dragleave', (e) => Grid.onDragLeave(e))
-      square.removeEventListener('drop', (e) => Grid.onDragDrop(e, main))
-      container.removeChild(square)
+    const oldAreas = document.querySelectorAll('area')
+    for (const area of oldAreas) {
+      area.removeEventListener('dragstart', (e) => Grid.onDragStart(e))
+      area.removeEventListener('dragover', (e) => Grid.onDragOver(e))
+      area.removeEventListener('dragleave', (e) => Grid.onDragLeave(e))
+      area.removeEventListener('drop', (e) => Grid.onDragDrop(e, main))
+      container.removeChild(area)
     }
   }
 
   public static shuffle(container: HTMLElement): void {
     const size = container.childElementCount
 
-    const squares = container.children as HTMLCollectionOf<HTMLElement>
+    const areas = container.children as HTMLCollectionOf<HTMLElement>
     // We create an array from 1 to $size
     // We put each element in the array in an object, and give it a random sort key
     // We sort using the random key
@@ -99,23 +99,19 @@ export default class Grid {
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value)
 
-    const oldSquareOrder = []
-    const newSquareOrder = []
     // change the order in the grid
-    for (const square of squares) {
+    const oldAreasOrder = []
+    const newAreasOrder = []
+    for (const area of areas) {
       const newOrder = shuffled[0]
-      oldSquareOrder.push(square.style.order)
-      newSquareOrder.push(String(newOrder))
-      square.style.order = String(newOrder)
+      oldAreasOrder.push(area.style.order)
+      newAreasOrder.push(String(newOrder))
+      area.style.order = String(newOrder)
       shuffled.shift()
     }
 
-    let sameOrder = false
-
-    if (oldSquareOrder.toString() === newSquareOrder.toString())
-      sameOrder = true
-
     // hmm nasty, shuffle again
+    let sameOrder = oldAreasOrder === newAreasOrder
     if (sameOrder) this.shuffle(container)
   }
 

@@ -10,7 +10,7 @@ import StartButton from './start-button'
 export default class Main {
   grid: Grid
   startButton: StartButton
-  canvas: HTMLMapElement
+  map: HTMLMapElement
   game: Game
   columnsInput: ColumnsInput
   rowsInput: RowsInput
@@ -27,7 +27,7 @@ export default class Main {
     this.grid = new Grid()
     this.game = new Game()
     this.startButton = new StartButton()
-    this.canvas = document.createElement('map')
+    this.map = document.createElement('map')
   }
 
   public start(container: HTMLElement): void {
@@ -59,11 +59,11 @@ export default class Main {
     main.appendChild(gridSection)
 
     // Other stuff
-    this.canvas.id = 'grid'
+    this.map.id = 'grid'
 
     window.addEventListener('load', () => this.grid.start(this))
 
-    main.appendChild(this.canvas)
+    main.appendChild(this.map)
 
     this.startButton.start(main, this)
 
